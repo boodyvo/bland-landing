@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const serverUrl = 'http://localhost:8080/api/v1/form';
+const serverUrl = 'https://blandcaller.onrender.com/api/v1/form';
 
 export default function Home() {
     const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ export default function Home() {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:8080/api/v1/form', {
+            const response = await fetch(serverUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
