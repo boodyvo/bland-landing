@@ -2,9 +2,32 @@
 
 import { useState } from 'react';
 
-const serverUrl = 'https://blandcaller.onrender.com/api/v1/form';
+const serverUrl = 'https://api.vocalyai.com/api/v1/external/submit';
+
+const validateID = (id?: string | null) => {
+    if (!id) {
+        return false;
+    }
+
+    const uuidRegex = new RegExp('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
+    return uuidRegex.test(id);
+}
 
 export default function Home() {
+    // extract id from url
+    const url = new URL(window.location.href);
+    const id = url.searchParams.get('id');
+    // validate id is uuid
+    const uuidRegex = new RegExp('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
+    if (!validateID(id)) {
+        return (
+            <main className="flex min-h-screen flex-col items-center justify-center py-24 px-4">
+                <div>Invalid URL.</div>
+                <div>Contact hi@vocalyai.com for correct link.</div>
+            </main>
+        )
+    }
+
     const [disabled, setDisabled] = useState(false);
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [formData, setFormData] = useState({
@@ -15,7 +38,7 @@ export default function Home() {
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
+        setFormData((prevState: any) => ({
             ...prevState,
             [name]: value
         }));
@@ -29,7 +52,7 @@ export default function Home() {
 
         setDisabled(true);
         try {
-            const response = await fetch(serverUrl, {
+            const response = await fetch(`${serverUrl}?id=${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,9 +112,6 @@ export default function Home() {
                   </div>
               </div>
           </form>
-
-
-
       </main>
     );
 }
