@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const serverUrl = 'https://api.vocalyai.com/api/v1/external/submit';
+const serverUrl = 'https://api.vocalyai.com/api/v1/external/demo/submit';
 
 const validateID = (id?: string | string[] | null) => {
     if (!id) {
