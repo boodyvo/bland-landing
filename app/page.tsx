@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        phone_number: ''
+        phone_number: '',
     });
 
     if (typeof window === 'undefined') {
@@ -67,12 +67,19 @@ const HomePage: React.FC = () => {
 
         setDisabled(true);
         try {
-            const response = await fetch(`${serverUrl}?id=${id}`, {
+            const bodyData = {
+                name: formData.name,
+                email: formData.email,
+                phone_number: formData.phone_number,
+                agent_id: id,
+            }
+
+            const response = await fetch(`${serverUrl}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(bodyData)
             });
 
             if (!response.ok) {
