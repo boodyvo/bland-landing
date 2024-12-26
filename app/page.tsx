@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const serverUrl = 'https://service.vocalyai.com/api/v1/external/demo/submit';
+// const serverUrl = 'https://api.vocalyai.com/api/v1/external/demo/submit';
+const serverUrl = 'http://localhost:8081/api/v1/external/demo/submit';
 
 const validateID = (id?: string | string[] | null) => {
     if (!id) {
@@ -14,6 +15,7 @@ const validateID = (id?: string | string[] | null) => {
     }
 
     const uuidRegex = new RegExp('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
+
     return uuidRegex.test(id);
 }
 
@@ -42,14 +44,14 @@ const HomePage: React.FC = () => {
     // const { id } = router.query;
     // validate id is uuid
     const uuidRegex = new RegExp('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
-    if (!validateID(id)) {
-        return (
-            <main className="flex min-h-screen flex-col items-center justify-center py-24 px-4">
-                <div>Invalid URL.</div>
-                <div>Contact hi@vocalyai.com for correct link.</div>
-            </main>
-        )
-    }
+    // if (!validateID(id)) {
+    //     return (
+    //         <main className="flex min-h-screen flex-col items-center justify-center py-24 px-4">
+    //             <div>Invalid URL.</div>
+    //             <div>Contact hi@vocalyai.com for correct link.</div>
+    //         </main>
+    //     )
+    // }
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -67,19 +69,31 @@ const HomePage: React.FC = () => {
 
         setDisabled(true);
         try {
-            const bodyData = {
+            const variables = {
                 name: formData.name,
                 email: formData.email,
-                phone_number: formData.phone_number,
-                agent_id: id,
             }
+            const settings = {
+                  "audioSettings": {
+                    "VoiceID": "TcFVFGKruwp5AI74cZL1"
+                  },
+                  "transcriberSettings": {
+                    "Language": "en"
+                  }
+            };
 
-            const response = await fetch(`${serverUrl}`, {
-                method: 'POST',
+            const response = await fetch("http://localhost:8081/api/v1/agent/e8fac920-6f9d-4116-9324-a738d5acdb21/test", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
+                    "X-API-Key": `67e8df44-91a6-4f5a-9d56-fdde6be6aa59`,
                 },
-                body: JSON.stringify(bodyData)
+                body: JSON.stringify({
+                    toPhoneNumber: formData.phone_number,
+                    fromPhoneNumber: "+17867331773",
+                    variables,
+                    settings,
+                }),
             });
 
             if (!response.ok) {

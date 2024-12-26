@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant Demo | VocalyAI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .header {
+            background-color: #1d4ed8;
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(29, 78, 216, 0.8), rgba(29, 78, 216, 0.9)),
+                        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3');
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features {
+            background-color: #f8fafc;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .testimonials {
+            background-color: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .pricing {
+            background-color: #f8fafc;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .footer {
+            background-color: #1e293b;
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section p {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .book-call-button:hover {
+            transform: translateY(-1px);
+        }
+
+        .pricing-card .book-call-button:hover {
+            background-color: #1e40af;
+        }
+
+        .book-call-button-german:hover {
+            transform: translateY(-1px);
+            background-color: #059669;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">VocalyAI</div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#pricing">Pricing</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Customer Service with AI</h1>
+            <p>Automate customer interactions with our advanced AI voice assistant. Available 24/7, speaking multiple languages, and delivering consistent quality service.</p>
+            
+            <div class="demo-buttons" style="display: flex; gap: 16px; justify-content: center; margin-top: 24px;">
+                <button class="book-call-button" style="
+                    background-color: white;
+                    color: #1d4ed8;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    font-weight: 500;
+                    border: none;
+                    cursor: pointer;
+                    transition: transform 0.2s;
+                ">Book Demo Call</button>
+                
+                <button class="book-call-button" style="
+                    background-color: transparent;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    font-weight: 500;
+                    border: 2px solid white;
+                    cursor: pointer;
+                    transition: transform 0.2s;
+                ">Schedule Consultation</button>
+            </div>
+
+            <div style="margin-top: 16px;">
+                <button class="book-call-button-german" style="
+                    background-color: #10b981;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    font-weight: 500;
+                    border: none;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                ">Gespräch Vereinbaren</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section features">
+        <div class="section-content">
+            <h2>Features</h2>
+            <p>Discover what makes our AI assistant unique</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Natural Conversations</h3>
+                    <p>Our AI understands context and maintains natural, flowing conversations that feel human-like.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Multi-lingual Support</h3>
+                    <p>Communicate with customers in their preferred language with support for over 20 languages.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>24/7 Availability</h3>
+                    <p>Never miss a customer inquiry with round-the-clock automated support.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Custom Voice</h3>
+                    <p>Choose from multiple voice options or create your own custom voice for your brand.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Analytics Dashboard</h3>
+                    <p>Get detailed insights into customer interactions and service performance.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Easy Integration</h3>
+                    <p>Seamlessly integrate with your existing systems through our API.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section testimonials">
+        <div class="section-content">
+            <h2>What Our Clients Say</h2>
+            <p>Success stories from businesses using our AI assistant</p>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"The AI assistant has transformed our customer service. We've seen a 40% reduction in response times."</p>
+                    <h4>Sarah Johnson</h4>
+                    <p>CEO, TechCorp</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Implementation was smooth, and the results were immediate. Our customers love the 24/7 availability."</p>
+                    <h4>Michael Chen</h4>
+                    <p>CTO, GlobalServe</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The multi-lingual support has helped us expand into new markets with confidence."</p>
+                    <h4>Maria Garcia</h4>
+                    <p>Operations Director, WorldTrade</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section pricing">
+        <div class="section-content">
+            <h2>Pricing Plans</h2>
+            <p>Choose the perfect plan for your business</p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$99/mo</div>
+                    <button class="book-call-button" style="
+                        background-color: #1d4ed8;
+                        color: white;
+                        padding: 12px 24px;
+                        border-radius: 8px;
+                        font-weight: 500;
+                        border: none;
+                        cursor: pointer;
+                        width: 100%;
+                        margin: 16px 0;
+                        transition: background-color 0.2s;
+                    ">Start Free Trial</button>
+                    <ul>
+                        <li>Up to 1,000 calls/month</li>
+                        <li>Basic Analytics</li>
+                        <li>5 Language Support</li>
+                        <li>Email Support</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <h3>Professional</h3>
+                    <div class="price">$299/mo</div>
+                    <button class="book-call-button-spanish" style="
+                        background-color: #1d4ed8;
+                        color: white;
+                        padding: 12px 24px;
+                        border-radius: 8px;
+                        font-weight: 500;
+                        border: none;
+                        cursor: pointer;
+                        width: 100%;
+                        margin: 16px 0;
+                        transition: background-color 0.2s;
+                    ">Hablar con Ventas</button>
+                    <ul>
+                        <li>Up to 5,000 calls/month</li>
+                        <li>Advanced Analytics</li>
+                        <li>15 Language Support</li>
+                        <li>24/7 Support</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <button class="book-call-button" style="
+                        background-color: #1d4ed8;
+                        color: white;
+                        padding: 12px 24px;
+                        border-radius: 8px;
+                        font-weight: 500;
+                        border: none;
+                        cursor: pointer;
+                        width: 100%;
+                        margin: 16px 0;
+                        transition: background-color 0.2s;
+                    ">Contact Sales</button>
+                    <ul>
+                        <li>Unlimited calls</li>
+                        <li>Custom Analytics</li>
+                        <li>All Languages</li>
+                        <li>Dedicated Support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>VocalyAI</h3>
+                <p>Transforming customer service with intelligent AI solutions.</p>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <p>About Us</p>
+                <p>Careers</p>
+                <p>Contact</p>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <p>Documentation</p>
+                <p>Blog</p>
+                <p>Support</p>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <p>Privacy Policy</p>
+                <p>Terms of Service</p>
+                <p>Cookie Policy</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Widget Script -->
+    <script src="./widget.js"></script>
+    <script>
+        // Initialize the widget with default fields
+        const widget = VocalyWidget.init({
+            apiKey: '67e8df44-91a6-4f5a-9d56-fdde6be6aa59',
+            agentId: 'e8fac920-6f9d-4116-9324-a738d5acdb21',
+            fromNumber: '+17867331773',
+            serverUrl: 'http://localhost:8081',
+            showFloatingButton: true,
+            primaryColor: '#1a5eff',
+            textColor: '#ffffff',
+            audioSettings: {
+                VoiceID: "TcFVFGKruwp5AI74cZL1"
+            },
+            language: "en",
+            // Default form fields configuration
+            formFields: [
+                {
+                    name: 'name',
+                    displayTitle: 'Name',
+                    type: 'text',
+                    placeholder: 'Enter your name',
+                    description: 'How our assistant will address you during the call',
+                    required: true
+                },
+                {
+                    name: 'email',
+                    displayTitle: 'Email',
+                    type: 'email',
+                    placeholder: 'your@email.com',
+                    description: "We'll send you the call transcript here",
+                    required: true
+                },
+                {
+                    name: 'phone_number',
+                    displayTitle: 'Phone Number',
+                    type: 'tel',
+                    placeholder: '(555) 000-0000',
+                    description: "The number we'll call you on",
+                    required: true
+                }
+            ]
+        });
+
+        // Add modal triggers to custom buttons with default fields
+        widget.openModal('.book-call-button');
+
+        // Spanish configuration with additional fields
+        const customButton = document.querySelector('.book-call-button-spanish');
+        if (customButton) {
+            widget.openModal('.book-call-button-spanish', {
+                audioSettings: {
+                    VoiceID: "zrHiDhphv9ZnVXBqCFjf"
+                },
+                language: "es",
+                formFields: [
+                    {
+                        name: 'name',
+                        displayTitle: 'Nombre',
+                        type: 'text',
+                        placeholder: 'Ingrese su nombre',
+                        description: 'Cómo se dirigirá nuestro asistente a usted',
+                        required: true
+                    },
+                    {
+                        name: 'company',
+                        displayTitle: 'Empresa',
+                        type: 'text',
+                        placeholder: 'Nombre de su empresa',
+                        description: 'Para personalizar mejor nuestra conversación',
+                        required: false
+                    },
+                    {
+                        name: 'email',
+                        displayTitle: 'Correo electrónico',
+                        type: 'email',
+                        placeholder: 'su@email.com',
+                        description: 'Le enviaremos la transcripción aquí',
+                        required: true
+                    },
+                    {
+                        name: 'phone_number',
+                        displayTitle: 'Número de teléfono',
+                        type: 'tel',
+                        placeholder: '(555) 000-0000',
+                        description: 'El número al que llamaremos',
+                        required: true
+                    }
+                ]
+            });
+        }
+
+        // German configuration with minimal fields
+        const germanButton = document.querySelector('.book-call-button-german');
+        if (germanButton) {
+            widget.openModal('.book-call-button-german', {
+                apiKey: '67e8df44-91a6-4f5a-9d56-fdde6be6aa59',
+                agentId: 'different-agent-id-here',
+                fromNumber: '+491234567890',
+                audioSettings: {
+                    VoiceID: "german-voice-id-here"
+                },
+                language: "multi",
+                primaryColor: '#10b981',
+                textColor: '#ffffff',
+                formFields: [
+                    {
+                        name: 'phone_number',
+                        displayTitle: 'Telefonnummer',
+                        type: 'tel',
+                        placeholder: '(555) 000-0000',
+                        description: 'Ihre Kontaktnummer',
+                        required: true
+                    },
+                    {
+                        name: 'preferred_time',
+                        displayTitle: 'Bevorzugte Zeit',
+                        type: 'time',
+                        placeholder: '13:00',
+                        description: 'Wann sollen wir Sie anrufen?',
+                        required: false
+                    }
+                ]
+            });
+        }
+    </script>
+</body>
+</html> 
