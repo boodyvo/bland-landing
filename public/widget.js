@@ -8,9 +8,9 @@ window.VocalyWidget = (function() {
             apiKey,
             agentId,
             fromNumber,
-            serverUrl = 'http://localhost:8081',
-            primaryColor = '#1a5eff',  // default primary color
-            textColor = '#ffffff',      // default text color
+            serverUrl = 'https://api.vocalyai.com',  // Updated default server URL
+            primaryColor = '#1a5eff',
+            textColor = '#ffffff',
             audioSettings = {
                 VoiceID: "TcFVFGKruwp5AI74cZL1"
             },
@@ -33,7 +33,7 @@ window.VocalyWidget = (function() {
                     required: true
                 },
                 {
-                    name: 'phone_number',
+                    name: 'phone_number',  // This name is required and shouldn't be changed
                     displayTitle: 'Phone Number',
                     type: 'tel',
                     placeholder: '(555) 000-0000',
@@ -43,9 +43,23 @@ window.VocalyWidget = (function() {
             ]
         } = config;
 
-        // Validate required parameters
+        // Add phone number field validation
+        function validateFormFields(fields) {
+            const hasPhoneField = fields.some(field => field.name === 'phone_number');
+            if (!hasPhoneField) {
+                console.error('Vocaly Widget: phone_number field is required in formFields configuration');
+                return false;
+            }
+            return true;
+        }
+
+        // Validate required parameters and phone field
         if (!apiKey || !agentId || !fromNumber) {
             console.error('Vocaly Widget: Missing required parameters (apiKey, agentId, or fromNumber)');
+            return;
+        }
+
+        if (!validateFormFields(formFields)) {
             return;
         }
 
@@ -585,15 +599,17 @@ window.VocalyWidget = (function() {
         // Return public methods
         return {
             openModal: (elementSelector, customSettings = {}) => {
+                if (customSettings.formFields && !validateFormFields(customSettings.formFields)) {
+                    return;
+                }
+
                 const elements = document.querySelectorAll(elementSelector);
                 elements.forEach(element => {
-                    // Create a new modal with merged settings
                     const modalSettings = {
-                        ...customSettings,  // Spread all custom settings first
+                        ...customSettings,
                         audioSettings: customSettings.audioSettings || audioSettings,
                         language: customSettings.language || language,
                         formFields: customSettings.formFields || formFields,
-                        // Ensure other settings are properly merged
                         apiKey: customSettings.apiKey || apiKey,
                         agentId: customSettings.agentId || agentId,
                         fromNumber: customSettings.fromNumber || fromNumber,

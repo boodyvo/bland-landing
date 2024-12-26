@@ -8,7 +8,7 @@ The Vocaly Widget is a customizable JavaScript widget that allows you to easily 
 ### 1. Include the Script
 Add the widget script to your HTML file:
 ```html
-<script src="path/to/widget.js"></script>
+<script src="https://cdn.vocalyai.com/js/widgets/widget.js" />
 ```
 
 ### 2. Initialize the Widget
@@ -36,7 +36,7 @@ const widget = VocalyWidget.init({
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `serverUrl` | string | 'http://localhost:8081' | API server URL |
+| `serverUrl` | string | 'https://api.vocalyai.com' | API server URL |
 | `primaryColor` | string | '#1a5eff' | Primary color for buttons and accents |
 | `textColor` | string | '#ffffff' | Text color for buttons |
 | `showFloatingButton` | boolean | true | Whether to show the floating call button |
@@ -58,6 +58,8 @@ Each form field can be configured with the following properties:
 }
 ```
 
+**Important Note**: The form fields configuration must always include a field with `name: 'phone_number'`. This field is required for the widget to function properly.
+
 Default form fields:
 ```javascript
 [
@@ -78,7 +80,7 @@ Default form fields:
         required: true
     },
     {
-        name: 'phone_number',
+        name: 'phone_number',  // This field is required
         displayTitle: 'Phone Number',
         type: 'tel',
         placeholder: '(555) 000-0000',
